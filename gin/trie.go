@@ -19,7 +19,7 @@ func (n *node) matchChild(part string) *node {
 	return nil
 }
 
-// 全部匹配成功的节点，用于查找
+// 所有匹配成功的节点，用于查找
 func (n *node) matchChildren(part string) []*node {
 	nodes := make([]*node, 0)
 	for _, child := range n.children {
@@ -35,6 +35,7 @@ func (n *node) insert(pattern string, parts []string, height int) {
 		n.pattern = pattern
 		return
 	}
+
 	part := parts[height]
 	child := n.matchChild(part)
 	if child == nil {
@@ -51,13 +52,16 @@ func (n *node) search(parts []string, height int) *node {
 		}
 		return n
 	}
+
 	part := parts[height]
 	children := n.matchChildren(part)
+
 	for _, child := range children {
 		result := child.search(parts, height+1)
 		if result != nil {
 			return result
 		}
 	}
+
 	return nil
 }
