@@ -44,7 +44,14 @@ func (n *node) insert(pattern string, parts []string, height int) {
 	}
 	child.insert(pattern, parts, height+1)
 }
-
+func (n *node) travel(list *([]*node)) {
+	if n.pattern != "" {
+		*list = append(*list, n)
+	}
+	for _, child := range n.children {
+		child.travel(list)
+	}
+}
 func (n *node) search(parts []string, height int) *node {
 	if len(parts) == height || strings.HasPrefix(n.part, "*") {
 		if n.pattern == "" {

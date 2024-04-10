@@ -7,6 +7,7 @@ import (
 )
 
 type H map[string]interface{}
+
 type Context struct {
 	Writer     http.ResponseWriter
 	Req        *http.Request
@@ -24,6 +25,7 @@ func newContext(w http.ResponseWriter, req *http.Request) *Context {
 		Method: req.Method,
 	}
 }
+
 func (c *Context) Param(key string) string {
 	value, _ := c.Params[key]
 	return value
@@ -36,6 +38,7 @@ func (c *Context) PostForm(key string) string {
 func (c *Context) Query(key string) string {
 	return c.Req.URL.Query().Get(key)
 }
+
 func (c *Context) Status(code int) {
 	c.StatusCode = code
 	c.Writer.WriteHeader(code)
